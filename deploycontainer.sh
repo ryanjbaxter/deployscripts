@@ -357,10 +357,10 @@ else
  IFS=',' read -a PORTSARRAY <<< "$PORT"
 fi
 
-export PUBLISH = ""
+export PUBLISH=""
 for PORTELEMENT in "${PORTSARRAY[@]}"
 do
-  PUBLISH = "$PUBLISH --publish $PORTELEMENT"
+  PUBLISH="$PUBLISH --publish $PORTELEMENT"
 done
 echo "publish argument $PUBLISH"
 if [ -z "$CONCURRENT_VERSIONS" ];then 
