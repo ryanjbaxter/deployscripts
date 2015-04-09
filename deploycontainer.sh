@@ -209,7 +209,7 @@ deploy_container() {
     fi  
  
     # run the container and check the results
-    ice run --name "${MY_CONTAINER_NAME}" --publish "${PORT}" ${IMAGE_NAME} 2> /dev/null
+    ice run --name "${MY_CONTAINER_NAME}" "${PUBLISH}" ${IMAGE_NAME} 2> /dev/null
     local RESULT=$?
     if [ $RESULT -ne 0 ]; then
         echo -e "${red}Failed to deploy ${MY_CONTAINER_NAME} using ${IMAGE_NAME}${no_color}"
@@ -352,8 +352,17 @@ if [ -z "$URL_PROTOCOL" ]; then
  export URL_PROTOCOL="http://" 
 fi 
 if [ -z "$PORT" ]; then 
- export PORT='80' 
-fi 
+ export PORTSARRAY=("80") 
+else
+ IFS=',' read -a PORTSARRAY <<< "$PORT"
+fi
+
+export PUBLISH = ""
+for PORTELEMENT in "${PORTSARRAY[@]}"
+do
+  PUBLISH = "$PUBLISH --publish $PORTELEMENT"
+done
+echo "publish argument $PUBLISH"
 if [ -z "$CONCURRENT_VERSIONS" ];then 
     export CONCURRENT_VERSIONS=1
 fi 
