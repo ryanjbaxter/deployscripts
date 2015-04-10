@@ -372,7 +372,7 @@ IFS=',' read -a ENVVARSARRAY <<< "$ENV_VARS"
 for element in "${ENVVARSARRAY[@]}"
 do
   IFS=':' read -a ENVVAR <<< "$element" 
-  CONTAINER_ENV_VARS="$CONTAINER_ENV_VARS -e ${envvar[0]}=\"${envvar[1]}\""
+  CONTAINER_ENV_VARS="$CONTAINER_ENV_VARS -e ${ENVVAR[0]}=\"${ENVVAR[1]}\""
 done
 echo "environment variables $CONTAINER_ENV_VARS"
  
