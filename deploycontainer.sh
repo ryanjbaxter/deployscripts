@@ -339,7 +339,7 @@ deploy_red_black () {
     fi 
     echo "Exporting TEST_URL:${TEST_URL}"
     export TEST_URL="${URL_PROTOCOL}${FLOATING_IP}"
-    echo -e "${green}Public IP address of ${CONTAINER_NAME}_${BUILD_NUMBER} is ${FLOATING_IP} and the TEST_URL is ${TEST_URL} using ports ${PORTSARRAY}${no_color}"
+    echo -e "${green}Public IP address of ${CONTAINER_NAME}_${BUILD_NUMBER} is ${FLOATING_IP} and the TEST_URL is ${TEST_URL} using ports ${PORTSARRAY[*]} ${no_color}"
 }
     
 ##################
