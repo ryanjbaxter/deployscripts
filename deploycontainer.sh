@@ -209,6 +209,7 @@ deploy_container() {
     fi  
  
     # run the container and check the results
+    echo "ice run --name \"${MY_CONTAINER_NAME}\" ${PUBLISH} ${CONTAINER_ENV_VARS} ${IMAGE_NAME}"
     ice run --name "${MY_CONTAINER_NAME}" ${PUBLISH} ${CONTAINER_ENV_VARS} ${IMAGE_NAME} 2> /dev/null
     local RESULT=$?
     if [ $RESULT -ne 0 ]; then
