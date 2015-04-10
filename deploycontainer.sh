@@ -209,7 +209,7 @@ deploy_container() {
     fi  
  
     # run the container and check the results
-    ice run --name "${MY_CONTAINER_NAME}" ${PUBLISH} ${IMAGE_NAME} 2> /dev/null
+    ice run --name "${MY_CONTAINER_NAME}" ${PUBLISH} ${CONTAINER_ENV_VARS} ${IMAGE_NAME} 2> /dev/null
     local RESULT=$?
     if [ $RESULT -ne 0 ]; then
         echo -e "${red}Failed to deploy ${MY_CONTAINER_NAME} using ${IMAGE_NAME}${no_color}"
@@ -366,7 +366,14 @@ echo "publish argument $PUBLISH"
 if [ -z "$CONCURRENT_VERSIONS" ];then 
     export CONCURRENT_VERSIONS=1
 fi 
- 
+
+export CONTAINER_ENV_VARS="" 
+IFS=',' read -a ENVVARSARRAY <<< "$ENV_VARS"
+for element in "${ENVVARSARRAY[@]}"
+do
+  IFS=':' read -a ENVVAR <<< "$element" 
+  CONTAINER_ENV_VARS="$CONTAINER_ENV_VARS -e ${envvar[0]}=\"${envvar[1]}\""
+done
  
 echo "Deploying using ${DEPLOY_TYPE} strategy, for ${CONTAINER_NAME}, deploy number ${BUILD_NUMBER}"
 if [ "${DEPLOY_TYPE}" == "red_black" ]; then 
