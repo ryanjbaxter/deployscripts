@@ -374,6 +374,7 @@ do
   IFS=':' read -a ENVVAR <<< "$element" 
   CONTAINER_ENV_VARS="$CONTAINER_ENV_VARS -e ${envvar[0]}=\"${envvar[1]}\""
 done
+echo "environment variables $CONTAINER_ENV_VARS"
  
 echo "Deploying using ${DEPLOY_TYPE} strategy, for ${CONTAINER_NAME}, deploy number ${BUILD_NUMBER}"
 if [ "${DEPLOY_TYPE}" == "red_black" ]; then 
